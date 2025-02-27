@@ -1,40 +1,87 @@
+import React from 'react';
+import { Users, Package, Grid, ChevronRight, Home } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-export default function Sidebar() {
-  return (
-    <div className="col-2 bg-dark text-white sidebar py-3">
-      <div className="d-flex align-items-center mb-4 px-3">
-        <i className="bi bi-box-seam fs-4 me-2"></i>
-        <h5 className="mb-0">Jithvar CMS</h5>
-      </div>
+const SidebarLink = ({ icon, text, href, hasSubmenu }) => (
+  <Link
+    to={href}
+    className="flex items-center px-4 py-2 text-gray-300 hover:text-white hover:bg-gray-700 rounded-lg"
+  >
+    <span className="mr-3">{icon}</span>
+    <span className="flex-1">{text}</span>
+    {hasSubmenu && <ChevronRight size={16} />}
+  </Link>
+);
 
-      <div className="px-3 mb-4">
-        <small className="text-muted">Management</small>
-        <div className="nav flex-column">
-          <a href="#" className="nav-link text-white">
-            <i className="bi bi-people me-2"></i>
-            User Management
-          </a>
-          <a href="#" className="nav-link text-white">
-            <i className="bi bi-gear me-2"></i>
-            Masters
-          </a>
+const Sidebar = () => {
+  return (
+    <div className="bg-gray-900 text-white w-64 min-h-screen flex flex-col">
+      {/* Logo */}
+      <div className="p-4 border-b border-gray-800">
+        <div className="flex items-center">
+          <Package className="h-8 w-8 mr-2" />
+          <div>
+            <h1 className="text-xl font-bold">Jithvar CMS</h1>
+            <p className="text-xs text-gray-400">Enterprise</p>
+          </div>
         </div>
       </div>
 
-      <div className="px-3">
-        <small className="text-muted">Products</small>
-        <div className="nav flex-column">
-          <a href="#" className="nav-link text-white">
-            <i className="bi bi-grid me-2"></i>
-            Categories
-          </a>
-          <a href="#" className="nav-link text-white">
-            <i className="bi bi-box me-2"></i>
+      {/* Navigation */}
+      <nav className="flex-1 p-4">
+        <div className="mb-8">
+          <h2 className="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">
+            Management
+          </h2>
+          <div className="space-y-1">
+            <SidebarLink
+              icon={<Users size={20} />}
+              text="User Management"
+              href="/users"
+              hasSubmenu
+            />
+            <SidebarLink
+              icon={<Grid size={20} />}
+              text="Masters"
+              href="/masters"
+              hasSubmenu
+            />
+          </div>
+        </div>
+
+        <div>
+          <h2 className="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">
             Products
-          </a>
+          </h2>
+          <div className="space-y-1">
+            <SidebarLink
+              icon={<Grid size={20} />}
+              text="Categories"
+              href="/categories"
+            />
+            <SidebarLink
+              icon={<Package size={20} />}
+              text="Products"
+              href="/products"
+            />
+          </div>
+        </div>
+      </nav>
+
+      {/* User Profile */}
+      <div className="p-4 border-t border-gray-800">
+        <div className="flex items-center">
+          <div className="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center text-sm font-medium">
+            CN
+          </div>
+          <div className="ml-3">
+            <p className="text-sm font-medium">shadcn</p>
+            <p className="text-xs text-gray-400">m@example.com</p>
+          </div>
         </div>
       </div>
     </div>
   );
-}
+};
+
+export default Sidebar;
